@@ -7,7 +7,11 @@ import auxiliar.Posicao;
 import java.util.ArrayList;
 
 public class ControleDeJogo {
+    Tela tela;
     
+    public ControleDeJogo(Tela tela) {
+        this.tela = tela;
+    }
     public void desenhaTudo(ArrayList<Personagem> e) {
         for (int i = 0; i < e.size(); i++) {
             e.get(i).autoDesenho();
@@ -21,8 +25,12 @@ public class ControleDeJogo {
             pIesimoPersonagem = umaFase.get(i);
             if (hero.getPosicao().igual(pIesimoPersonagem.getPosicao())) {
                 if (pIesimoPersonagem.isbTransponivel()) /*TO-DO: verificar se o personagem eh mortal antes de retirar*/ {
-                    if (pIesimoPersonagem.isbMortal())
-                    umaFase.remove(pIesimoPersonagem);
+                    if (pIesimoPersonagem.isbMortal()) {
+                        hero.setPosicao(0, 0);
+                        this.tela.resetTela();
+                        desenhaTudo(umaFase);
+                    }
+                    
                 }
             }
         }
