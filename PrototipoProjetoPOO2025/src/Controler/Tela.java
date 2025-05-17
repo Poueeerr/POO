@@ -5,8 +5,8 @@ import Modelo.Caveira;
 import Modelo.Hero;
 import Modelo.Chaser;
 import Modelo.BichinhoVaiVemHorizontal;
-import Auxiliar.Consts;
-import Auxiliar.Desenho;
+import auxiliar.Consts;
+import auxiliar.Desenho;
 import Modelo.BichinhoVaiVemVertical;
 import Modelo.ZigueZague;
 import auxiliar.Posicao;
@@ -37,7 +37,7 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
 
     private Hero hero;
     private ArrayList<Personagem> faseAtual;
-    private ControleDeJogo cj = new ControleDeJogo();
+    private ControleDeJogo cj = new ControleDeJogo(this);
     private Graphics g2;
     private int cameraLinha = 0;
     private int cameraColuna = 0;
@@ -86,6 +86,11 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         chase.setPosicao(12, 12);
         this.addPersonagem(chase);        
         
+    }
+    
+    public void resetTela(){
+        cameraLinha = 0;
+        cameraColuna = 0;
     }
 
     public int getCameraLinha() {
@@ -200,7 +205,7 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
     }
 
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -221,9 +226,9 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    // End of variables declaration//GEN-END:variables
+    }// </editor-fold>                        
+    // Variables declaration - do not modify                     
+    // End of variables declaration                   
 
     public void mouseMoved(MouseEvent e) {
     }
