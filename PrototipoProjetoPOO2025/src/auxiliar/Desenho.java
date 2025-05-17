@@ -1,4 +1,4 @@
-package Auxiliar;
+package auxiliar;
 
 import java.awt.Graphics;
 import java.io.Serializable;

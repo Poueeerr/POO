@@ -1,4 +1,4 @@
-package Auxiliar;
+package auxiliar;
 
 import java.io.File;
 

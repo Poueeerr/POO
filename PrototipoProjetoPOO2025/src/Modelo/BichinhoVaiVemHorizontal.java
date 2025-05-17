@@ -1,7 +1,7 @@
 package Modelo;
 
-import Auxiliar.Consts;
-import Auxiliar.Desenho;
+import auxiliar.Consts;
+import auxiliar.Desenho;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;

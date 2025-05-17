@@ -1,6 +1,6 @@
 package Modelo;
 
-import Auxiliar.Desenho;
+import auxiliar.Desenho;
 import Controler.Tela;
 import java.awt.Graphics;
 import java.io.Serializable;

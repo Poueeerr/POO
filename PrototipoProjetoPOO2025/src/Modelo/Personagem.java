@@ -1,7 +1,7 @@
 package Modelo;
 
-import Auxiliar.Consts;
-import Auxiliar.Desenho;
+import auxiliar.Consts;
+import auxiliar.Desenho;
 import Controler.Tela;
 import auxiliar.Posicao;
 import java.awt.Graphics;
