@@ -3,9 +3,11 @@ package Controler;
 import Modelo.Chaser;
 import Modelo.Personagem;
 import Modelo.Hero;
+import Modelo.Porta;
 import Auxiliar.Posicao;
+import Modelo.Chave;
 import java.util.ArrayList;
-
+import java.awt.event.KeyEvent;
 public class ControleDeJogo {
     Tela tela;
     
@@ -26,28 +28,114 @@ public class ControleDeJogo {
         }
     }
     
-    public void processaTudo(ArrayList<Personagem> umaFase) {
-        Posicao faseUmPosicaoVitoria = new Posicao(29, 23);
+    public void verificaGameOver(ArrayList<Personagem> umaFase, Hero hero, Personagem pIesimoPersonagem) {
+        if (hero.getPosicao().igual(pIesimoPersonagem.getPosicao())) {
+                if (pIesimoPersonagem.isbTransponivel()) /*TO-DO: verificar se o personagem eh mortal antes de retirar*/ {
+                    if (pIesimoPersonagem.isbMortal()) {
+                        hero.setPosicao(0, 0);
+                        this.tela.resetaTela();
+                        desenhaTudo(umaFase);
+                    }
+                    
+                }
+        }
+    }
+    
+    public void verificaPassouDeFase(ArrayList<Personagem> umaFase, Hero hero, Personagem pIesimoPersonagem) {
+            if(!hero.getPosicao().igual(pIesimoPersonagem.getPosicao())) {
+                return;
+            }
+            if(pIesimoPersonagem instanceof Porta) {
+                    Porta porta = (Porta) pIesimoPersonagem;
+                    if(porta.estaAberta()) {
+                        this.tela.resetaTela();
+                        this.tela.setTelaAtualNumero(this.tela.getTelaAtualNumero() + 1);
+                        this.tela.carregarTela(this.tela.getTelaAtualNumero());
+                    }
+           }
+    }
+    
+    public void verificaAberturaDePorta(ArrayList<Personagem> umaFase, Hero hero, Personagem pIesimoPersonagem, int tecla) {
+            
+            if(!hero.getPosicao().igual(pIesimoPersonagem.getPosicao())) {
+                return;
+            }
+            if (pIesimoPersonagem instanceof Porta) {
+                Porta porta = (Porta) pIesimoPersonagem;
+                if (porta.getPosicao().igual(hero.getPosicao())) {
+                    if (!porta.estaAberta()) {
+                        for(int j = 0; j < hero.mochila.tamanho(); j++) {
+                            if(hero.mochila.pegarItem(j) instanceof Chave) {
+                                Chave chave = (Chave) hero.mochila.pegarItem(j);
+                                System.out.println("Chave foi coletada: " + chave.foiColetada());
+                                System.out.println("Chave foi usada: " + chave.foiUsada());
+                                if(chave.foiColetada() && !chave.foiUsada()) {
+                                    porta.abrirPorta();
+                                    chave.abrir();
+                                }
+                                
+                            }
+                        }
+                        
+                    }
+                }
+            }
+    }
+    
+    public void verificaColetaDeChave(ArrayList<Personagem> umaFase, Hero hero, Personagem pIesimoPersonagem, int tecla) {
+            
+            if(!hero.getPosicao().igual(pIesimoPersonagem.getPosicao())) {
+                return;
+            }
+            if(pIesimoPersonagem instanceof Chave && tecla == KeyEvent.VK_ENTER) {
+                Chave chaveFase = (Chave) pIesimoPersonagem;
+                if (chaveFase.getPosicao().igual(hero.getPosicao())) {
+                    for(int j = 0; j < hero.mochila.tamanho(); j++) {
+                        if(hero.mochila.pegarItem(j) instanceof Chave) {
+                            Chave chaveHeroi = (Chave) hero.mochila.pegarItem(j);
+                            if(!chaveHeroi.foiColetada()) {
+                                chaveHeroi.coletar();
+                                chaveFase.coletar();
+                            }
+                        }
+                            
+                    }
+
+                }
+            }
+    }
+    
+    public void processaTudo(ArrayList<Personagem> umaFase, int tecla) {
+        Posicao faseUmPosicaoVitoria = this.tela.getPosicaoVitoria();
         Hero hero = (Hero) umaFase.get(0);
         Personagem pIesimoPersonagem;
         for (int i = 1; i < umaFase.size(); i++) {
             pIesimoPersonagem = umaFase.get(i);
-            if (hero.getPosicao().igual(pIesimoPersonagem.getPosicao())) {
-                if (pIesimoPersonagem.isbTransponivel()) /*TO-DO: verificar se o personagem eh mortal antes de retirar*/ {
-                    if (pIesimoPersonagem.isbMortal()) {
-                        hero.setPosicao(0,0);
-                        this.tela.resetaTela();
-                        desenhaTudo(umaFase);;
-                        return;
-                    }
-                    
-                }
+            verificaGameOver(umaFase, hero, pIesimoPersonagem);
+            verificaColetaDeChave(umaFase, hero, pIesimoPersonagem, tecla);
+            verificaAberturaDePorta(umaFase, hero, pIesimoPersonagem, tecla);
+            verificaPassouDeFase(umaFase, hero, pIesimoPersonagem);
+            
+        }
+ 
+
+        
+        
+        for (int i = 1; i < umaFase.size(); i++) {
+            pIesimoPersonagem = umaFase.get(i);
+            if (pIesimoPersonagem instanceof Chaser) {
+                ((Chaser) pIesimoPersonagem).computeDirection(hero.getPosicao());
             }
-            if(hero.getPosicao().igual(faseUmPosicaoVitoria)) {
-                    hero.setPosicao(0,0);
-                    this.tela.resetaTela();
-                    desenhaTudo(umaFase);
-            }
+        }
+    }
+    public void processaTudo(ArrayList<Personagem> umaFase) {
+        Posicao faseUmPosicaoVitoria = this.tela.getPosicaoVitoria();
+        Hero hero = (Hero) umaFase.get(0);
+        Personagem pIesimoPersonagem;
+        for (int i = 1; i < umaFase.size(); i++) {
+            pIesimoPersonagem = umaFase.get(i);
+            verificaGameOver(umaFase, hero, pIesimoPersonagem);
+            verificaPassouDeFase(umaFase, hero, pIesimoPersonagem);
         }
         for (int i = 1; i < umaFase.size(); i++) {
             pIesimoPersonagem = umaFase.get(i);

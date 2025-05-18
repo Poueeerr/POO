@@ -13,8 +13,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class Hero extends Personagem implements Serializable{
-    public Hero(String sNomeImagePNG) {
+    public Mochila mochila;
+    public Hero(String sNomeImagePNG, Mochila mochila) {
         super(sNomeImagePNG);
+        this.mochila = mochila;
     }
 
     public void voltaAUltimaPosicao(){
