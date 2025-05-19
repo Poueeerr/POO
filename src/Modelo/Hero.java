@@ -13,10 +13,37 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class Hero extends Personagem implements Serializable{
+    private int pontuacao = 0;
+    private int vidas = 5;
+    private final int PONTUACAO_MAXIMA = 100;
     public Mochila mochila;
     public Hero(String sNomeImagePNG, Mochila mochila) {
         super(sNomeImagePNG);
         this.mochila = mochila;
+    }
+    
+    public boolean estaMorto() {
+        return this.vidas == 0;
+    }
+    
+    public void perdeUmaVida() {
+        this.vidas--;
+    }
+    
+    public int getVidas() {
+        return this.vidas;
+    }
+    
+    public int getPontuacao() {
+        return this.pontuacao;
+    }
+    
+    public void setPontuacao(int pontuacao) {
+        if(this.pontuacao + pontuacao > PONTUACAO_MAXIMA) {
+            this.pontuacao = pontuacao;
+            return;
+        }
+        this.pontuacao += pontuacao;
     }
 
     public void voltaAUltimaPosicao(){

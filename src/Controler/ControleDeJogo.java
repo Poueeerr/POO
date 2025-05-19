@@ -4,6 +4,7 @@ import Modelo.Chaser;
 import Modelo.Personagem;
 import Modelo.Hero;
 import Modelo.Porta;
+import Modelo.ImagemFundo;
 import Auxiliar.Posicao;
 import Modelo.Chave;
 import java.util.ArrayList;
@@ -32,9 +33,14 @@ public class ControleDeJogo {
         if (hero.getPosicao().igual(pIesimoPersonagem.getPosicao())) {
                 if (pIesimoPersonagem.isbTransponivel()) /*TO-DO: verificar se o personagem eh mortal antes de retirar*/ {
                     if (pIesimoPersonagem.isbMortal()) {
-                        hero.setPosicao(0, 0);
-                        this.tela.resetaTela();
-                        desenhaTudo(umaFase);
+                        if(!hero.estaMorto()) {
+                           hero.setPosicao(0, 0);
+                           hero.perdeUmaVida();
+                           this.tela.resetaTela();
+                           desenhaTudo(umaFase);
+                        } else {
+                            System.out.println("Morreu");
+                        }
                     }
                     
                 }
@@ -49,11 +55,13 @@ public class ControleDeJogo {
                     Porta porta = (Porta) pIesimoPersonagem;
                     if(porta.estaAberta()) {
                         this.tela.resetaTela();
+                        hero.setPontuacao(hero.getPontuacao() + 1);
                         this.tela.setTelaAtualNumero(this.tela.getTelaAtualNumero() + 1);
                         this.tela.carregarTela(this.tela.getTelaAtualNumero());
                     }
            }
     }
+   
     
     public void verificaAberturaDePorta(ArrayList<Personagem> umaFase, Hero hero, Personagem pIesimoPersonagem, int tecla) {
             
