@@ -51,6 +51,7 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
     public Tela() {
         Desenho.setCenario(this);
         initComponents();
+        setAutoRequestFocus(true);
         this.addMouseListener(this);
         /*mouse*/
 
