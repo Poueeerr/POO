@@ -4,26 +4,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/cadshoes3/Desktop/projetoPOO/PrototipoProjetoPOO2025/src/Controler/ControleDeJogo.java</file>
-            <file>file:/C:/Users/cadshoes3/Desktop/projetoPOO/PrototipoProjetoPOO2025/src/Auxiliar/Posicao.java</file>
-            <file>file:/C:/Users/cadshoes3/Desktop/projetoPOO/PrototipoProjetoPOO2025/src/Auxiliar/Desenho.java</file>
-            <file>file:/C:/Users/cadshoes3/Desktop/projetoPOO/PrototipoProjetoPOO2025/src/Auxiliar/Consts.java</file>
-            <file>file:/C:/Users/cadshoes3/Desktop/projetoPOO/PrototipoProjetoPOO2025/src/Controler/Tela.java</file>
-            <file>file:/C:/Users/cadshoes3/Desktop/projetoPOO/PrototipoProjetoPOO2025/src/Modelo/Personagem.java</file>
-            <file>file:/C:/Users/cadshoes3/Desktop/projetoPOO/PrototipoProjetoPOO2025/src/Modelo/Chaser.java</file>
-            <file>file:/C:/Users/cadshoes3/Desktop/projetoPOO/PrototipoProjetoPOO2025/src/Modelo/Fogo.java</file>
-            <file>file:/C:/Users/cadshoes3/Desktop/projetoPOO/PrototipoProjetoPOO2025/src/Modelo/Hero.java</file>
-            <file>file:/C:/Users/cadshoes3/Desktop/projetoPOO/PrototipoProjetoPOO2025/src/Modelo/ZigueZague.java</file>
-            <file>file:/C:/Users/cadshoes3/Desktop/projetoPOO/PrototipoProjetoPOO2025/src/Modelo/Caveira.java</file>
-            <file>file:/C:/Users/cadshoes3/Desktop/projetoPOO/PrototipoProjetoPOO2025/src/Modelo/BichinhoVaiVemVertical.java</file>
-            <file>file:/C:/Users/cadshoes3/Desktop/projetoPOO/PrototipoProjetoPOO2025/src/Modelo/BichinhoVaiVemHorizontal.java</file>
-            <file>file:/C:/Users/cadshoes3/Desktop/projetoPOO/PrototipoProjetoPOO2025/src/Modelo/BlocoMortal.java</file>
-            <file>file:/C:/Users/cadshoes3/Desktop/projetoPOO/PrototipoProjetoPOO2025/src/Modelo/Estrada.java</file>
-            <file>file:/C:/Users/cadshoes3/Desktop/projetoPOO/PrototipoProjetoPOO2025/src/Modelo/Porta.java</file>
-            <file>file:/C:/Users/cadshoes3/Desktop/projetoPOO/PrototipoProjetoPOO2025/src/Main.java</file>
-            <file>file:/C:/Users/cadshoes3/Desktop/projetoPOO/PrototipoProjetoPOO2025/src/Modelo/Chave.java</file>
-            <file>file:/C:/Users/cadshoes3/Desktop/projetoPOO/PrototipoProjetoPOO2025/src/Modelo/Mochila.java</file>
-            <file>file:/C:/Users/cadshoes3/Desktop/projetoPOO/PrototipoProjetoPOO2025/src/Modelo/ImagemFundo.java</file>
+            <file>file:/home/cleverson/Downloads/projetoPOO/PrototipoProjetoPOO2025/src/Controler/ControleDeJogo.java</file>
+            <file>file:/home/cleverson/Downloads/projetoPOO/PrototipoProjetoPOO2025/src/Controler/Tela.java</file>
+            <file>file:/home/cleverson/Downloads/projetoPOO/PrototipoProjetoPOO2025/src/Auxiliar/Desenho.java</file>
+            <file>file:/home/cleverson/Downloads/projetoPOO/PrototipoProjetoPOO2025/src/Main.java</file>
+            <file>file:/home/cleverson/Downloads/projetoPOO/PrototipoProjetoPOO2025/src/Auxiliar/Consts.java</file>
+            <file>file:/home/cleverson/Downloads/projetoPOO/PrototipoProjetoPOO2025/src/Auxiliar/Posicao.java</file>
+            <file>file:/home/cleverson/Downloads/projetoPOO/PrototipoProjetoPOO2025/src/Modelo/Personagem.java</file>
+            <file>file:/home/cleverson/Downloads/projetoPOO/PrototipoProjetoPOO2025/src/Modelo/Hero.java</file>
         </group>
     </open-files>
 </project-private>

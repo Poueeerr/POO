@@ -1,24 +1,17 @@
 package Controler;
 
-import Modelo.Personagem;
-import Modelo.Caveira;
-import java.awt.FontMetrics;
-import java.awt.Font;
-import Modelo.Estrada;
-import Modelo.Porta;
-import Modelo.BlocoMortal;
-import Modelo.Hero;
-import Modelo.Chave;
-import Modelo.Mochila;
-import Modelo.Chaser;
-import Modelo.BichinhoVaiVemHorizontal;
-import Modelo.ImagemFundo;
 import Auxiliar.Consts;
 import Auxiliar.Desenho;
-import Modelo.BichinhoVaiVemVertical;
-import Modelo.ZigueZague;
 import Auxiliar.Posicao;
-import java.awt.FlowLayout;
+import Modelo.BlocoMortal;
+import Modelo.Chave;
+import Modelo.Estrada;
+import Modelo.Hero;
+import Modelo.ImagemFundo;
+import Modelo.Mochila;
+import Modelo.Personagem;
+import Modelo.Porta;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -27,24 +20,21 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.zip.GZIPInputStream;
-import java.util.zip.GZIPOutputStream;
-import javax.swing.JButton;
 
 public class Tela extends javax.swing.JFrame implements MouseListener, KeyListener {
     public ImagemFundo imagemFundo;
     private ImagemFundo imagemCoracao;
+    private int tempoLimite = 60; // Tempo em segundos para cada fase
+    private long tempoInicio; // Quando a fase começou
+    private boolean timerAtivo = false;
+    private Timer gameTimer; // Timer para atualizar o jogo
+    private Font fonteTempo = new Font("Arial", Font.BOLD, 20);
     private final int ESPACAMENTO_CORACAO = 10; // Espaço entre os corações
     private final int POSICAO_X_CORACAO_INICIAL = 475; // Posição X inicial para o primeiro coração
     private final int POSICAO_Y_CORACAO = 0; // Posição Y para os corações
@@ -78,7 +68,50 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         carregarTela(numeroDaTelaAtual);   
     }
     
+    public void iniciarTimer() {
+    tempoInicio = System.currentTimeMillis();
+    timerAtivo = true;
+}
+
+// Método para verificar se o tempo acabou
+private void verificarTimer() {
+    if (!timerAtivo) return;
     
+    long tempoAtual = System.currentTimeMillis();
+    int tempoPassado = (int)((tempoAtual - tempoInicio) / 1000);
+    int tempoRestante = tempoLimite - tempoPassado;
+    
+    if (tempoRestante <= 0) {
+        // Tempo esgotado
+        timerAtivo = false;
+        hero.setPosicao(0, 0);
+        this.carregarTela(1);
+        hero.setPontuacao(0);
+        this.resetaTela();
+        atualizaCamera();
+    }
+}
+
+// Método para desenhar o tempo na tela
+private void desenharTimer(Graphics g) {
+    if (!timerAtivo) return;
+    
+    long tempoAtual = System.currentTimeMillis();
+    int tempoPassado = (int)((tempoAtual - tempoInicio) / 1000);
+    int tempoRestante = tempoLimite - tempoPassado;
+    
+    g2.setFont(fonteTempo);
+    g2.setColor(java.awt.Color.WHITE);
+    String textoTempo = "Tempo: " + tempoRestante + "s";
+    
+    // Desenha o texto do tempo no canto superior esquerdo
+    g2.drawString(textoTempo, 10, 25);
+}
+
+    // Método para resetar o timer quando passar de fase
+    public void resetarTimer() {
+        iniciarTimer();
+    }
     
     public int getTelaAtualNumero() {
         return numeroDaTelaAtual;
@@ -101,43 +134,50 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
     
     
     public void carregarTela(int numeroDaTela) {
-        faseAtual.clear();
-        
-        for(int i = 0; i < hero.mochila.tamanho();i++) {
-            if(hero.mochila.pegarItem(i) instanceof Chave) {
-                Chave chave = (Chave) hero.mochila.pegarItem(i);
-                chave.reset();
-            }
+    faseAtual.clear();
+    
+    for(int i = 0; i < hero.mochila.tamanho();i++) {
+        if(hero.mochila.pegarItem(i) instanceof Chave) {
+            Chave chave = (Chave) hero.mochila.pegarItem(i);
+            chave.reset();
         }
-        
-        faseAtual.add(hero);
-        
-        switch(numeroDaTela) {
-            case 1:
-                hero.setPosicao(0, 7);
-                constroiEstradasDaFase1();
-                constroiParedesDaFase1();
-                constroiChavesDaFase1();
-                constroiPortasFechadasFase1();
-                break;
-            case 2:
-                hero.setPosicao(0, 15);
-                constroiEstradasDaFase1();
-                constroiParedesDaFase1();
-                constroiChavesDaFase1();
-                constroiPortasFechadasFase1();
-                break;
-            // Tela final
-            case 3:
-                imagemFundo = new ImagemFundo("TelaWin.png");
-                break;
-            default:
-                System.out.println("Fase não implementada: " + numeroDaTela);
-                break;
-        }
-        numeroDaTelaAtual = numeroDaTela;
-        atualizaCamera();
     }
+    hero.resetVidas();
+    faseAtual.add(hero);
+    switch(numeroDaTela) {
+        case 1:
+            hero.setPosicao(0, 7);
+            constroiEstradasDaFase1();
+            constroiParedesDaFase1();
+            constroiChavesDaFase1();
+            constroiPortasFechadasFase1();
+            tempoLimite = 20; // 20 segundos para a fase 1
+            break;
+        case 2:
+            hero.setPosicao(0, 15);
+            constroiEstradasDaFase1();
+            constroiParedesDaFase1();
+            constroiChavesDaFase1();
+            constroiPortasFechadasFase1();
+            tempoLimite = 90; // 90 segundos para a fase 2
+            break;
+        // Tela final
+        case 3:
+            imagemFundo = new ImagemFundo("TelaWin.png");
+            timerAtivo = false; // Desativa o timer na tela final
+            break;
+        default:
+            System.out.println("Fase não implementada: " + numeroDaTela);
+            break;
+    }
+    numeroDaTelaAtual = numeroDaTela;
+    atualizaCamera();
+    
+    // Inicia o timer para a nova fase
+    if (numeroDaTelaAtual < 3) {
+        iniciarTimer();
+    }
+}
     public void constroiChavesDaFase1() {
         int[][] estradas = {
               {0, 0}, {0, 1}, {0, 2}, {0, 3}, {0, 4}, {0, 5}, {0, 6}, {0, 7}, {0, 8}, {0, 9}, {0, 10}, {0, 11}, {0, 12}, {0, 13}, {0, 14}, {0, 15}, {0, 16}, {0, 17}, {0, 18}, {0, 19}, {0, 21}, {0, 22}, {0, 23}, {0, 24}, {0, 25}, {0, 26}, {0, 27}, {0, 28},
@@ -368,6 +408,9 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         
         Graphics g = this.getBufferStrategy().getDrawGraphics();
         g2 = g.create(getInsets().left, getInsets().top, getWidth() - getInsets().right, getHeight() - getInsets().top);
+        
+        // Verifica o timer
+        verificarTimer();
         for (int i = 0; i < Consts.RES; i++) {
             for (int j = 0; j < Consts.RES; j++) {
                 int mapaLinha = cameraLinha + i;
@@ -396,6 +439,10 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         }
         if(this.numeroDaTelaAtual != 6) {
             desenhaVidas();
+            // Desenha o timer se estiver ativo
+            if (timerAtivo) {
+                desenharTimer(g2);
+            }
         }
 
 

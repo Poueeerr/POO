@@ -1,14 +1,13 @@
 package Controler;
 
-import Modelo.Chaser;
-import Modelo.Personagem;
-import Modelo.Hero;
-import Modelo.Porta;
-import Modelo.ImagemFundo;
 import Auxiliar.Posicao;
+import Modelo.Chaser;
 import Modelo.Chave;
-import java.util.ArrayList;
+import Modelo.Hero;
+import Modelo.Personagem;
+import Modelo.Porta;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 public class ControleDeJogo {
     Tela tela;
     
