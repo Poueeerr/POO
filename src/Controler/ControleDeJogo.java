@@ -10,9 +10,11 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 public class ControleDeJogo {
     Tela tela;
+    Fase fase;
     
-    public ControleDeJogo(Tela tela) {
+    public ControleDeJogo(Tela tela, Fase fase) {
         this.tela = tela;
+        this.fase = fase;
     }
     public void desenhaTudo(ArrayList<Personagem> e) {
         // Primeiro desenha todos os elementos que não são o herói
@@ -136,7 +138,7 @@ public class ControleDeJogo {
         }
     }
     public void processaTudo(ArrayList<Personagem> umaFase) {
-        Posicao faseUmPosicaoVitoria = this.tela.getPosicaoVitoria();
+        Posicao faseUmPosicaoVitoria = this.fase.getPosicaoVitoria();
         Hero hero = (Hero) umaFase.get(0);
         Personagem pIesimoPersonagem;
         for (int i = 1; i < umaFase.size(); i++) {
