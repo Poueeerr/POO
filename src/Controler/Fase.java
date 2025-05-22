@@ -16,7 +16,7 @@ import Modelo.Porta;
  * @author cleverson
  */
 public class Fase {
-    private int numero;
+    public static int numero;
     private int tempoLimite;
     private Posicao posicaoInicialHeroi;
     private Posicao posicaoVitoria;

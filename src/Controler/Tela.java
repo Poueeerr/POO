@@ -3,6 +3,7 @@ package Controler;
 import Auxiliar.Consts;
 import Auxiliar.Desenho;
 import Auxiliar.Posicao;
+import Controler.Fase;
 import Modelo.BlocoMortal;
 import Modelo.Chave;
 import Modelo.Estrada;
@@ -314,6 +315,7 @@ private void desenhaVidas() {
         Timer timer = new Timer();
         timer.schedule(task, 0, Consts.PERIOD);
     }
+            int loaded = 0;
 
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_C) {
@@ -329,7 +331,30 @@ private void desenhaVidas() {
         } else if(e.getKeyCode() == KeyEvent.VK_ENTER) {
             this.cj.processaTudo(faseAtual.getPersonagens(), KeyEvent.VK_ENTER);
         }
-        
+        if(e.getKeyCode() == KeyEvent.VK_P){
+            System.out.println("Fase" + Fase.numero);
+            SaveLoad.salvarJogo(hero, Fase.numero);
+            loaded = 0;
+        }
+        if(e.getKeyCode() == KeyEvent.VK_L){
+            GameData data = SaveLoad.carregarJogo();
+            if (data != null) {
+                    
+                    System.out.println(loaded);
+                    if(loaded == 0){
+                        hero.setPontuacao(data.pontuacao);
+                        loaded++;
+                    }
+                hero.resetVidas(); 
+                System.out.println(data.vidas);
+                for (int i = 5; i > data.vidas; i--) {
+                    hero.perdeUmaVida(); 
+                }
+                faseAtual.configurarFase(data.faseAtual, hero);
+        }
+
+        }
+
         this.atualizaCamera();
         this.setTitle("-> Cell: " + (hero.getPosicao().getColuna()) + ", "
                 + (hero.getPosicao().getLinha()));
