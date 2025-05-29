@@ -331,15 +331,16 @@ private void desenhaVidas() {
         } else if(e.getKeyCode() == KeyEvent.VK_ENTER) {
             this.cj.processaTudo(faseAtual.getPersonagens(), KeyEvent.VK_ENTER);
         }
-        if(e.getKeyCode() == KeyEvent.VK_P){
-            System.out.println("Fase" + Fase.numero);
-            SaveLoad.salvarJogo(hero, Fase.numero);
+        if(e.getKeyCode() == KeyEvent.VK_S){
+            System.out.println("Fase" + getTelaAtualNumero());
+            SaveLoad.salvarJogo(hero, getTelaAtualNumero());
             loaded = 0;
         }
         if(e.getKeyCode() == KeyEvent.VK_L){
             GameData data = SaveLoad.carregarJogo();
             if (data != null) {
-                    
+                setTelaAtualNumero(data.faseAtual);
+                carregarTela(numeroDaTelaAtual);    
                     System.out.println(loaded);
                     if(loaded == 0){
                         hero.setPontuacao(data.pontuacao);
@@ -350,7 +351,7 @@ private void desenhaVidas() {
                 for (int i = 5; i > data.vidas; i--) {
                     hero.perdeUmaVida(); 
                 }
-                faseAtual.configurarFase(data.faseAtual, hero);
+                
         }
 
         }
