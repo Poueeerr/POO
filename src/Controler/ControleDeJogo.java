@@ -57,8 +57,7 @@ public class ControleDeJogo {
                     if(porta.estaAberta()) {
                         this.tela.resetaTela();
                         hero.setPontuacao(hero.getPontuacao() + 1);
-                        this.tela.setTelaAtualNumero(this.tela.getTelaAtualNumero() + 1);
-                        this.tela.carregarTela(this.tela.getTelaAtualNumero());
+                        this.tela.carregarTela(this.tela.getTelaAtualNumero() + 1);
                     }
            }
     }
@@ -115,7 +114,7 @@ public class ControleDeJogo {
     }
     
     public void processaTudo(ArrayList<Personagem> umaFase, int tecla) {
-        Posicao faseUmPosicaoVitoria = this.tela.getPosicaoVitoria();
+        Posicao faseUmPosicaoVitoria = this.tela.getFaseAtual().getPosicaoVitoria();
         Hero hero = (Hero) umaFase.get(0);
         Personagem pIesimoPersonagem;
         for (int i = 1; i < umaFase.size(); i++) {

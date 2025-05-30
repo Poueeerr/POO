@@ -3,15 +3,11 @@ package Controler;
 import Auxiliar.Consts;
 import Auxiliar.Desenho;
 import Auxiliar.Posicao;
-import Controler.Fase;
-import Modelo.BlocoMortal;
 import Modelo.Chave;
-import Modelo.Estrada;
 import Modelo.Hero;
 import Modelo.ImagemFundo;
 import Modelo.Mochila;
 import Modelo.Personagem;
-import Modelo.Porta;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
@@ -23,7 +19,6 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
@@ -53,23 +48,23 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         Desenho.setCenario(this);
         initComponents();
         setAutoRequestFocus(true);
+        
         this.addMouseListener(this);
-        /*mouse*/
-
         this.addKeyListener(this);
-        /*teclado*/
- /*Cria a janela do tamanho do tabuleiro + insets (bordas) da janela*/
+
         this.setSize(Consts.RES * Consts.CELL_SIDE + getInsets().left + getInsets().right,
                 Consts.RES * Consts.CELL_SIDE + getInsets().top + getInsets().bottom);
-        // Carrega a imagem do coração
+
         this.imagemCoracao = new ImagemFundo("coracao.png");
+        
         hero = new Hero("Robbo.png", new Mochila<Chave>());
-        faseAtual = new Fase(1, hero);
+        faseAtual = new Fase(0, hero);
         
         hero.mochila.adicionarItem(new Chave("Key.png"));
         this.faseAtual.addPersonagem(hero);
         cj = new ControleDeJogo(this, faseAtual);
-        carregarTela(numeroDaTelaAtual);   
+        
+        carregarTela(0);   
     }
     
     public Fase getFaseAtual() {
@@ -77,44 +72,44 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
     }
     
     public void iniciarTimer() {
-    tempoInicio = System.currentTimeMillis();
-    timerAtivo = true;
-}
-
-// Método para verificar se o tempo acabou
-private void verificarTimer() {
-    if (!timerAtivo) return;
-    
-    long tempoAtual = System.currentTimeMillis();
-    int tempoPassado = (int)((tempoAtual - tempoInicio) / 1000);
-    int tempoRestante = faseAtual.getTempoLimite() - tempoPassado;
-    
-    if (tempoRestante <= 0) {
-        // Tempo esgotado
-        timerAtivo = false;
-        hero.setPosicao(0, 0);
-        this.carregarTela(1);
-        hero.setPontuacao(0);
-        this.resetaTela();
-        atualizaCamera();
+        tempoInicio = System.currentTimeMillis();
+        timerAtivo = true;
     }
-}
 
-// Método para desenhar o tempo na tela
-private void desenharTimer(Graphics g) {
-    if (!timerAtivo) return;
-    
-    long tempoAtual = System.currentTimeMillis();
-    int tempoPassado = (int)((tempoAtual - tempoInicio) / 1000);
-    int tempoRestante = this.faseAtual.getTempoLimite() - tempoPassado;
-    
-    g2.setFont(fonteTempo);
-    g2.setColor(java.awt.Color.WHITE);
-    String textoTempo = "Tempo: " + tempoRestante + "s";
-    
-    // Desenha o texto do tempo no canto superior esquerdo
-    g2.drawString(textoTempo, 10, 25);
-}
+    // Método para verificar se o tempo acabou
+    private void verificarTimer() {
+        if (!timerAtivo) return;
+
+        long tempoAtual = System.currentTimeMillis();
+        int tempoPassado = (int)((tempoAtual - tempoInicio) / 1000);
+        int tempoRestante = faseAtual.getTempoLimite() - tempoPassado;
+
+        if (tempoRestante <= 0) {
+            // Tempo esgotado
+            timerAtivo = false;
+            hero.setPosicao(0, 0);
+            this.carregarTela(1);
+            hero.setPontuacao(0);
+            this.resetaTela();
+            atualizaCamera();
+        }
+    }
+
+    // Método para desenhar o tempo na tela
+    private void desenharTimer(Graphics g) {
+        if (!timerAtivo) return;
+
+        long tempoAtual = System.currentTimeMillis();
+        int tempoPassado = (int)((tempoAtual - tempoInicio) / 1000);
+        int tempoRestante = this.faseAtual.getTempoLimite() - tempoPassado;
+
+        g2.setFont(fonteTempo);
+        g2.setColor(java.awt.Color.WHITE);
+        String textoTempo = "Tempo: " + tempoRestante + "s";
+
+        // Desenha o texto do tempo no canto superior esquerdo
+        g2.drawString(textoTempo, 10, 25);
+    }
 
     // Método para resetar o timer quando passar de fase
     public void resetarTimer() {
@@ -128,43 +123,28 @@ private void desenharTimer(Graphics g) {
     public void setTelaAtualNumero(int numeroDaTelaAtual) {
         this.numeroDaTelaAtual = numeroDaTelaAtual;
     }
-    
-    public Posicao getPosicaoVitoria() {
-        switch (numeroDaTelaAtual) {
-            case 1:
-                return new Posicao(29, 23);
-            case 2:
-                return new Posicao(10, 10);
-            default:
-                return null;
-        }
-    }
-    
-    
+
     public void carregarTela(int numeroDaTela) {
-    faseAtual.clear();
-    
-    for(int i = 0; i < hero.mochila.tamanho();i++) {
-        if(hero.mochila.pegarItem(i) instanceof Chave) {
-            Chave chave = (Chave) hero.mochila.pegarItem(i);
-            chave.reset();
+        faseAtual.clear();
+
+        for(int i = 0; i < hero.mochila.tamanho();i++) {
+            if(hero.mochila.pegarItem(i) instanceof Chave) {
+                Chave chave = (Chave) hero.mochila.pegarItem(i);
+                chave.reset();
+            }
+        }
+
+        hero.resetVidas();
+        faseAtual.addPersonagem(hero);
+        faseAtual.configurarFase(numeroDaTela, hero);
+        this.numeroDaTelaAtual = numeroDaTela;
+        atualizaCamera();
+
+        // Inicia o timer para a nova fase
+        if (this.numeroDaTelaAtual < 3) {
+            iniciarTimer();
         }
     }
-    hero.resetVidas();
-    faseAtual.addPersonagem(hero);
-    faseAtual.configurarFase(0, hero);
-    numeroDaTelaAtual = numeroDaTela;
-    atualizaCamera();
-    
-    // Inicia o timer para a nova fase
-    if (numeroDaTelaAtual < 3) {
-        iniciarTimer();
-    }
-}
-   
-    
-
-
 
     public int getCameraLinha() {
         return cameraLinha;
@@ -245,58 +225,58 @@ private void desenharTimer(Graphics g) {
         }
     }
     private void desenhaPontuacao() {
-            g2.setFont(fonteTempo);
-            g2.setColor(java.awt.Color.YELLOW);
-            String textoTempo = "Pontuacao: " + hero.getPontuacao();
+        g2.setFont(fonteTempo);
+        g2.setColor(java.awt.Color.YELLOW);
+        String textoTempo = "Pontuacao: " + hero.getPontuacao();
 
-            // Calcula dimensões totais da tela com base nas constantes
-            int larguraTela = Consts.CELL_SIDE * Consts.RES;
-            int alturaTela = Consts.CELL_SIDE * Consts.RES;
+        // Calcula dimensões totais da tela com base nas constantes
+        int larguraTela = Consts.CELL_SIDE * Consts.RES;
+        int alturaTela = Consts.CELL_SIDE * Consts.RES;
 
-            // Calcula tamanho do texto
-            FontMetrics fm = g2.getFontMetrics();
-            int larguraTexto = fm.stringWidth(textoTempo);
+        // Calcula tamanho do texto
+        FontMetrics fm = g2.getFontMetrics();
+        int larguraTexto = fm.stringWidth(textoTempo);
 
-            // Centraliza horizontalmente e posiciona no final da tela na vertical
-            int x = (larguraTela - larguraTexto) / 2;
-            int y = alturaTela - fm.getDescent();  // ou -10 se quiser um pequeno espaçamento acima da borda
+        // Centraliza horizontalmente e posiciona no final da tela na vertical
+        int x = (larguraTela - larguraTexto) / 2;
+        int y = alturaTela - fm.getDescent();  // ou -10 se quiser um pequeno espaçamento acima da borda
 
-            // Desenha o texto
-            g2.drawString(textoTempo, x, y - 50);
-        
-    }
-private void desenhaVidas() {
-    if (imagemCoracao == null) {
-        // Fallback para texto se a imagem não estiver disponível
-        g2.setFont(new Font("Arial", Font.BOLD, 20));
-        String texto = "Vidas: " + hero.getVidas();
-        g2.drawString(texto, POSICAO_X_CORACAO_INICIAL, POSICAO_Y_CORACAO + 20);
-        return;
+        // Desenha o texto
+        g2.drawString(textoTempo, x, y - 50);   
     }
     
-    // Desenha um coração para cada vida
-    int totalVidas = hero.getVidas();
-    int larguraTotal = totalVidas * imagemCoracao.getLargura() + (totalVidas - 1) * ESPACAMENTO_CORACAO;
-    int larguraTela = getWidth(); // ou use o valor fixo se preferir
-    int posX = larguraTela - larguraTotal - 20;
-    
-    for (int i = 0; i < hero.getVidas(); i++) {
-        // Salva o estado atual do Graphics
-        Graphics2D g2Copy = (Graphics2D) g2.create();
-        
-        // Translada o contexto gráfico para a posição do coração atual
-        g2Copy.translate(posX, POSICAO_Y_CORACAO);
-        
-        // Desenha o coração na posição atual
-        imagemCoracao.desenhar(g2Copy);
-        
-        // Libera o contexto gráfico copiado
-        g2Copy.dispose();
-        
-        // Avança para a próxima posição
-        posX += imagemCoracao.getLargura() + ESPACAMENTO_CORACAO;
+    private void desenhaVidas() {
+        if (imagemCoracao == null) {
+            // Fallback para texto se a imagem não estiver disponível
+            g2.setFont(new Font("Arial", Font.BOLD, 20));
+            String texto = "Vidas: " + hero.getVidas();
+            g2.drawString(texto, POSICAO_X_CORACAO_INICIAL, POSICAO_Y_CORACAO + 20);
+            return;
+        }
+
+        // Desenha um coração para cada vida
+        int totalVidas = hero.getVidas();
+        int larguraTotal = totalVidas * imagemCoracao.getLargura() + (totalVidas - 1) * ESPACAMENTO_CORACAO;
+        int larguraTela = getWidth(); // ou use o valor fixo se preferir
+        int posX = larguraTela - larguraTotal - 20;
+
+        for (int i = 0; i < hero.getVidas(); i++) {
+            // Salva o estado atual do Graphics
+            Graphics2D g2Copy = (Graphics2D) g2.create();
+
+            // Translada o contexto gráfico para a posição do coração atual
+            g2Copy.translate(posX, POSICAO_Y_CORACAO);
+
+            // Desenha o coração na posição atual
+            imagemCoracao.desenhar(g2Copy);
+
+            // Libera o contexto gráfico copiado
+            g2Copy.dispose();
+
+            // Avança para a próxima posição
+            posX += imagemCoracao.getLargura() + ESPACAMENTO_CORACAO;
+        }
     }
-}
 
     private void atualizaCamera() {
         int linha = hero.getPosicao().getLinha();
