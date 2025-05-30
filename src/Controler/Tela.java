@@ -141,7 +141,7 @@ public class Tela extends javax.swing.JFrame implements MouseListener, KeyListen
         atualizaCamera();
 
         // Inicia o timer para a nova fase
-        if (this.numeroDaTelaAtual < 3) {
+        if (this.numeroDaTelaAtual < 5) {
             iniciarTimer();
         }
     }
