@@ -27,18 +27,18 @@ public class FaseConstrutor {
     private String estradaSprite;
     private String paredeSprite;
     
-    public FaseConstrutor(Fase fase, Hero hero, int[][] paredes, int tempoLimite, Posicao posicaoInicialHeroi, Posicao posicaoVitoria) {
+    public FaseConstrutor(Fase fase, Hero hero, FaseDesign faseDesign) {
         this.fase = fase;
         this.hero = hero;
         
-        this.paredes = paredes;
+        this.paredes = faseDesign.getParedes();
         
         this.estradaSprite = "Grama.png";
         this.paredeSprite = "Spike.png";
         
-        this.tempoLimite = tempoLimite;
-        this.posicaoInicialHeroi = posicaoInicialHeroi;
-        this.posicaoVitoria = posicaoVitoria;
+        this.tempoLimite = faseDesign.getTempoLimite();
+        this.posicaoInicialHeroi = faseDesign.getPosicaoInicialHeroi();
+        this.posicaoVitoria = faseDesign.getPosicaoVitoria();
         
         this.construirListaDeEstradas();
     }
@@ -63,7 +63,6 @@ public class FaseConstrutor {
     
     public void iniciarFase() {
        this.fase.setTempoLimite(this.tempoLimite);
-       this.fase.setPosicaoInicialHeroi(this.posicaoInicialHeroi);
        this.fase.setPosicaoVitoria(this.posicaoVitoria);
        this.construirFase();
        this.hero.setPosicao(this.posicaoInicialHeroi.getLinha(), this.posicaoInicialHeroi.getColuna());

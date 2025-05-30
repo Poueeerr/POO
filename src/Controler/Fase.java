@@ -8,11 +8,7 @@ import java.util.ArrayList;
 import Modelo.Personagem;
 import Modelo.Hero;
 import Auxiliar.Posicao;
-import Modelo.BlocoMortal;
-import Modelo.Chave;
-import Modelo.Estrada;
 import Modelo.FaseConstrutor;
-import Modelo.Porta;
 /**
  *
  * @author cleverson
@@ -20,7 +16,6 @@ import Modelo.Porta;
 public class Fase {
     public static int numero;
     private int tempoLimite;
-    private Posicao posicaoInicialHeroi;
     private Posicao posicaoVitoria;
     private ArrayList<Personagem> personagens;
     
@@ -31,21 +26,12 @@ public class Fase {
     }
     
     public void configurarFase(int numero, Hero hero) {
-        ArrayList<FaseConstrutor> fases = new ArrayList<FaseConstrutor>();
-        fases.add(new FaseConstrutor(this, hero, FasesDesign.paredes[0], 150, new Posicao(0, 7), new Posicao(29, 23)));
-        fases.add(new FaseConstrutor(this, hero, FasesDesign.paredes[0], 60, new Posicao(0, 7), new Posicao(29, 23)));
-        fases.add(new FaseConstrutor(this, hero, FasesDesign.paredes[0], 60, new Posicao(0, 7), new Posicao(29, 23)));
-        fases.add(new FaseConstrutor(this, hero, FasesDesign.paredes[0], 60, new Posicao(0, 7), new Posicao(29, 23)));
-        fases.add(new FaseConstrutor(this, hero, FasesDesign.paredes[0], 60, new Posicao(0, 7), new Posicao(29, 23)));
-        fases.get(numero).iniciarFase();
+        FaseConstrutor faseConstrutor = new FaseConstrutor(this, hero, FasesDesign.fases[numero]);
+        faseConstrutor.iniciarFase();
     }
     
     public void setTempoLimite(int tempoLimite) {
         this.tempoLimite = tempoLimite;
-    }
-    
-    public void setPosicaoInicialHeroi(Posicao posicaoInicialHeroi) {
-        this.posicaoInicialHeroi = posicaoInicialHeroi;
     }
     
     public void setPosicaoVitoria(Posicao posicaoVitoria) {
@@ -75,6 +61,7 @@ public class Fase {
     public ArrayList<Personagem> getPersonagens() {
         return this.personagens;
     }
+    
     public Posicao getPosicaoVitoria() {
         return this.posicaoVitoria;
     }
