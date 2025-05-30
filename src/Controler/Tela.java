@@ -152,7 +152,7 @@ private void desenharTimer(Graphics g) {
     }
     hero.resetVidas();
     faseAtual.addPersonagem(hero);
-    faseAtual.configurarFase(numeroDaTela, hero);
+    faseAtual.configurarFase(0, hero);
     numeroDaTelaAtual = numeroDaTela;
     atualizaCamera();
     

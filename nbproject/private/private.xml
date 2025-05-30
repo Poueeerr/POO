@@ -4,12 +4,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/felipe-skubs-oliveira/Documents/POO/src/Controler/SaveLoad.java</file>
-            <file>file:/home/felipe-skubs-oliveira/Documents/POO/src/Controler/GameData.java</file>
-            <file>file:/home/felipe-skubs-oliveira/Documents/POO/src/Controler/ControleDeJogo.java</file>
-            <file>file:/home/felipe-skubs-oliveira/Documents/POO/src/Controler/Tela.java</file>
-            <file>file:/home/felipe-skubs-oliveira/Documents/POO/src/Controler/Fase.java</file>
-            <file>file:/home/felipe-skubs-oliveira/Documents/POO/src/Modelo/Hero.java</file>
+            <file>file:/Users/yurifaria/Documents/POO/src/Controler/ControleDeJogo.java</file>
+            <file>file:/Users/yurifaria/Documents/POO/src/Auxiliar/Desenho.java</file>
+            <file>file:/Users/yurifaria/Documents/POO/src/Auxiliar/Consts.java</file>
+            <file>file:/Users/yurifaria/Documents/POO/src/Controler/Tela.java</file>
+            <file>file:/Users/yurifaria/Documents/POO/src/Auxiliar/Posicao.java</file>
+            <file>file:/Users/yurifaria/Documents/POO/src/Modelo/ZigueZague.java</file>
+            <file>file:/Users/yurifaria/Documents/POO/src/Controler/SaveLoad.java</file>
+            <file>file:/Users/yurifaria/Documents/POO/src/Controler/GameData.java</file>
+            <file>file:/Users/yurifaria/Documents/POO/src/Controler/Fase.java</file>
+            <file>file:/Users/yurifaria/Documents/POO/src/Modelo/Chave.java</file>
+            <file>file:/Users/yurifaria/Documents/POO/src/Modelo/Fogo.java</file>
         </group>
     </open-files>
 </project-private>
