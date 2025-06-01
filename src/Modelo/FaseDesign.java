@@ -12,16 +12,22 @@ import Auxiliar.Posicao;
  */
 public class FaseDesign {
     private int tempoLimite;
+    
     private Posicao posicaoInicialHeroi;
     private Posicao posicaoVitoria;
     
     private int[][] paredes;
     
-    public FaseDesign(int[][] paredes, int tempoLimite, Posicao posicaoInicialHeroi, Posicao posicaoVitoria) {
+    private String estradaSprite;
+    private String paredeSprite;
+    
+    public FaseDesign(int[][] paredes, int tempoLimite, Posicao posicaoInicialHeroi, Posicao posicaoVitoria, String estradaSprite, String paredeSprite) {
         this.paredes = paredes;
         this.tempoLimite = tempoLimite;
         this.posicaoInicialHeroi = posicaoInicialHeroi;
         this.posicaoVitoria = posicaoVitoria;
+        this.estradaSprite = estradaSprite;
+        this.paredeSprite = paredeSprite;
     }
     
     public int[][] getParedes() {
@@ -38,5 +44,13 @@ public class FaseDesign {
     
     public Posicao getPosicaoVitoria() {
         return this.posicaoVitoria;
+    }
+    
+    public String getEstradaSprite() {
+        return this.estradaSprite;
+    }
+    
+    public String getParedeSprite() {
+        return this.paredeSprite;
     }
 }

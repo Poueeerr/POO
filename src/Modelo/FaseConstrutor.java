@@ -8,7 +8,6 @@ import Auxiliar.Consts;
 import Auxiliar.Posicao;
 import Controler.Fase;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -35,8 +34,8 @@ public class FaseConstrutor {
         
         this.paredes = faseDesign.getParedes();
         
-        this.estradaSprite = "Estrada.jfif";
-        this.paredeSprite = "Lava.jfif";
+        this.estradaSprite = faseDesign.getEstradaSprite();
+        this.paredeSprite = faseDesign.getParedeSprite();
         
         this.tempoLimite = faseDesign.getTempoLimite();
         this.posicaoInicialHeroi = faseDesign.getPosicaoInicialHeroi();
