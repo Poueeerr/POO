@@ -26,6 +26,7 @@ public class Fase {
     }
     
     public void configurarFase(int numero, Hero hero) {
+        
         FaseConstrutor faseConstrutor = new FaseConstrutor(this, hero, FasesDesign.fases[numero]);
         faseConstrutor.iniciarFase();
     }

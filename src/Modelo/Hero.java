@@ -18,7 +18,7 @@ import javax.swing.JPanel;
 public class Hero extends Personagem implements Serializable{
     private int pontuacao = 0;
     private int vidas = 5;
-    private final int PONTUACAO_MAXIMA = 100;
+    private final int PONTUACAO_MAXIMA = 330;
     public Mochila mochila;
     
     public Hero(String sNomeImagePNG, Mochila mochila) {
@@ -46,12 +46,28 @@ public class Hero extends Personagem implements Serializable{
         return this.pontuacao;
     }
     
+    /**
+     * CORREÇÃO: Define a pontuação absoluta, não soma
+     */
     public void setPontuacao(int pontuacao) {
-        if(this.pontuacao + pontuacao > PONTUACAO_MAXIMA) {
-            this.pontuacao = pontuacao;
+        if(pontuacao > PONTUACAO_MAXIMA) {
+            this.pontuacao = PONTUACAO_MAXIMA;
             return;
         }
-        this.pontuacao += pontuacao;
+        this.pontuacao = pontuacao; // Define o valor absoluto
+        System.out.println("DEBUG Hero: Pontuação definida como: " + this.pontuacao);
+    }
+    
+    /**
+     * NOVO: Método para incrementar pontuação (se necessário)
+     */
+    public void incrementarPontuacao(int incremento) {
+        if(this.pontuacao + incremento > PONTUACAO_MAXIMA) {
+            this.pontuacao = PONTUACAO_MAXIMA;
+            return;
+        }
+        this.pontuacao += incremento;
+        System.out.println("DEBUG Hero: Pontuação incrementada em " + incremento + ". Total: " + this.pontuacao);
     }
 
     public void voltaAUltimaPosicao(){
@@ -81,6 +97,4 @@ public class Hero extends Personagem implements Serializable{
         }
         return true;       
     }
-    
-    // Resto dos métodos permanecem iguais...
 }

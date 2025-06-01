@@ -4,17 +4,22 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/yurifaria/Documents/POO/src/Controler/ControleDeJogo.java</file>
-            <file>file:/Users/yurifaria/Documents/POO/src/Auxiliar/Desenho.java</file>
-            <file>file:/Users/yurifaria/Documents/POO/src/Auxiliar/Consts.java</file>
-            <file>file:/Users/yurifaria/Documents/POO/src/Controler/Tela.java</file>
-            <file>file:/Users/yurifaria/Documents/POO/src/Auxiliar/Posicao.java</file>
-            <file>file:/Users/yurifaria/Documents/POO/src/Modelo/ZigueZague.java</file>
-            <file>file:/Users/yurifaria/Documents/POO/src/Controler/SaveLoad.java</file>
-            <file>file:/Users/yurifaria/Documents/POO/src/Controler/GameData.java</file>
-            <file>file:/Users/yurifaria/Documents/POO/src/Controler/Fase.java</file>
-            <file>file:/Users/yurifaria/Documents/POO/src/Modelo/Chave.java</file>
-            <file>file:/Users/yurifaria/Documents/POO/src/Modelo/Fogo.java</file>
+            <file>file:/C:/Users/cadshoes3/Desktop/projetoPOODefinitivo/src/Modelo/FaseConstrutor.java</file>
+            <file>file:/C:/Users/cadshoes3/Desktop/projetoPOODefinitivo/src/Modelo/Chaser.java</file>
+            <file>file:/C:/Users/cadshoes3/Desktop/projetoPOODefinitivo/src/Controler/ControleDeJogo.java</file>
+            <file>file:/C:/Users/cadshoes3/Desktop/projetoPOODefinitivo/src/Modelo/Personagem.java</file>
+            <file>file:/C:/Users/cadshoes3/Desktop/projetoPOODefinitivo/src/Controler/GameData.java</file>
+            <file>file:/C:/Users/cadshoes3/Desktop/projetoPOODefinitivo/src/Modelo/BlocoMortal.java</file>
+            <file>file:/C:/Users/cadshoes3/Desktop/projetoPOODefinitivo/src/Controler/SaveLoad.java</file>
+            <file>file:/C:/Users/cadshoes3/Desktop/projetoPOODefinitivo/src/Controler/Fase.java</file>
+            <file>file:/C:/Users/cadshoes3/Desktop/projetoPOODefinitivo/src/Modelo/PersonagemFactory.java</file>
+            <file>file:/C:/Users/cadshoes3/Desktop/projetoPOODefinitivo/src/Modelo/Caveira.java</file>
+            <file>file:/C:/Users/cadshoes3/Desktop/projetoPOODefinitivo/src/Auxiliar/Posicao.java</file>
+            <file>file:/C:/Users/cadshoes3/Desktop/projetoPOODefinitivo/src/Controler/Tela.java</file>
+            <file>file:/C:/Users/cadshoes3/Desktop/projetoPOODefinitivo/src/Modelo/BichinhoVaiVemVertical.java</file>
+            <file>file:/C:/Users/cadshoes3/Desktop/projetoPOODefinitivo/src/Modelo/Estrada.java</file>
+            <file>file:/C:/Users/cadshoes3/Desktop/projetoPOODefinitivo/src/Modelo/FaseDesign.java</file>
+            <file>file:/C:/Users/cadshoes3/Desktop/projetoPOODefinitivo/src/Auxiliar/Consts.java</file>
         </group>
     </open-files>
 </project-private>
